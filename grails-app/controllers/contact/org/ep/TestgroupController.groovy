@@ -46,6 +46,11 @@ class TestgroupController {
             if (!deleteInstance) {
                 flash.deleteUnsuccess = "Cannot Delete Group with Id ${params.id}"
             }
+            if(deleteInstance.myUser != Person.get(session.myUserId)) {
+                flash.cannotDelete = "The Group cannot be Deleted."
+                redirect(action: "show")
+                return
+            }
             def contactDelete = Test.findAllByMyGroupAndMyUser(deleteInstance, Person.get(session.myUserId))
             contactDelete.each { contact ->
                 contact.myGroup = null
@@ -82,6 +87,11 @@ class TestgroupController {
     def edit() {
         if(session.myUserId) {
             TestGroup editInstance = TestGroup.get(Integer.parseInt(params.id))
+            if(editInstance.myUser != Person.get(session.myUserId)) {
+                flash.cannotUpdate = "The Group cannot be Updated."
+                redirect(action: "show")
+                return
+            }
             editInstance.name = params.gname
             editInstance.save(flush: true)
 

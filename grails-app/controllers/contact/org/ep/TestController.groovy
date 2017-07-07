@@ -86,6 +86,11 @@ class TestController {
                 redirect(action: "show")
                 return
             }
+            if(deleteInstance.myUser != Person.get(session.myUserId)) {
+                flash.cannotDelete = "The Group cannot be Deleted."
+                redirect(action: "show")
+                return
+            }
             deleteInstance.delete()
             flash.successDel = "Successfully Deleted."
             redirect(action: "show")
@@ -128,6 +133,11 @@ class TestController {
             println "Params wala ID : ${params.id}"
             def id = Integer.parseInt(params.id)
             def editInstance = Test.get(id)
+            if(editInstance.myUser != Person.get(session.myUserId)) {
+                flash.cannotUpdate = "The Group cannot be Updated."
+                redirect(action: "show")
+                return
+            }
             editInstance.firstName = params.fname
             editInstance.lastName = params.lname
             editInstance.email = params.email
@@ -138,6 +148,7 @@ class TestController {
                 redirect(action: "index")
                 return
             }
+
             editInstance.dob = date
             editInstance.phone = Long.parseLong(params.phone)
 

@@ -16,6 +16,12 @@
 <g:if test="${flash.successSave}">
     <div class=" alert alert-success">${flash.successSave}</div>
 </g:if>
+<g:if test="${flash.cannotDelete}">
+    <div class=" alert alert-danger">${flash.cannotDelete}</div>
+</g:if>
+<g:if test="${flash.cannotUpdate}">
+    <div class=" alert alert-danger">${flash.cannotUpdate}</div>
+</g:if>
 <g:if test="${flash.deleteUnsuccess}">
     <div class=" alert alert-danger">${flash.deleteUnsuccess}</div>
 </g:if>

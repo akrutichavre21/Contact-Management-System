@@ -12,6 +12,12 @@
 <g:if test="${flash.successCreate}">
     <div class=" alert alert-success">${flash.successCreate}</div>
 </g:if>
+<g:if test="${flash.cannotDelete}">
+    <div class=" alert alert-danger">${flash.cannotDelete}</div>
+</g:if>
+<g:if test="${flash.cannotUpdate}">
+    <div class=" alert alert-danger">${flash.cannotUpdate}</div>
+</g:if>
 <g:if test="${flash.successDel}">
     <div class=" alert alert-success">${flash.successDel}</div>
 </g:if>
