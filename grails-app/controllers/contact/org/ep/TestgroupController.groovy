@@ -46,6 +46,11 @@ class TestgroupController {
             if (!deleteInstance) {
                 flash.deleteUnsuccess = "Cannot Delete Group with Id ${params.id}"
             }
+            def contactDelete = Test.findAllByMyGroupAndMyUser(deleteInstance, Person.get(session.myUserId))
+            contactDelete.each { contact ->
+                contact.myGroup = null
+            }
+
             deleteInstance.delete()
             flash.deleteSuccess = "Group has been Deleted."
             redirect(action: "show")

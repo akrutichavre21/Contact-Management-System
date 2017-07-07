@@ -44,6 +44,18 @@
                 Last Name
             </th>
             <th>
+                Email
+            </th>
+            <th>
+                Phone Number
+            </th>
+            <th>
+                Date Of Birth
+            </th>
+            <th>
+                Favourite
+            </th>
+            <th>
                 Group Name
             </th>
             <th>
@@ -63,7 +75,30 @@
                     ${it.lastName}
                 </td>
                 <td>
-                    ${it.myGroup.name}
+                    ${it.email}
+                </td>
+                <td>
+                    ${it.phone}
+                </td>
+                <td>
+                    ${it.dob}
+                </td>
+                <td>
+                    <g:if test="${it.favFlag==true}">
+                        Yes
+                    </g:if>
+                    <g:else>
+                        No
+                    </g:else>
+                </td>
+                <td>
+                    <g:if test="${it.myGroup}">
+                        ${it.myGroup.name}
+                    </g:if>
+                    <g:else>
+                    No group
+                    </g:else>
+
                 </td>
                 <td>
                     <g:link  controller="test" action="delete" id="${it.id}" class="btn btn-danger">Delete</g:link>

@@ -1,6 +1,9 @@
 package contact.org.ep
+import java.text.SimpleDateFormat
 
 class TestController {
+    /*TestGroup emptyGroup = new TestGroup([name: "No Group", myUser: Person.get(session.myUserId) ])*/
+
     def index() {
         println "session id - ${session.myUserId}"
 
@@ -23,9 +26,29 @@ class TestController {
             Test test = new Test()
             test.firstName = params.fname
             test.lastName = params.lname
+            test.email = params.email
+            println "\n\n\n"
+            println params
+            def date = new SimpleDateFormat("yyyy-MM-dd").parse(params.dob)
+            if(date.after(new Date())) {
+                flash.dateError = "Enter a Valid Birth Date."
+                redirect(action: "index")
+                return
+            }
+            test.dob = date
+            test.phone = Long.parseLong(params.phone)
             test.myUser = Person.get(session.myUserId)
-            test.myGroup = TestGroup.get(Integer.parseInt(params.groupId))
-
+            if((params.groupId).equals("noGroup")){
+                test.myGroup = null
+            } else {
+                test.myGroup = TestGroup.get(Integer.parseInt(params.groupId))
+            }
+            if((params.fav).equals("fav")) {
+                test.favFlag = true
+            } else {
+                test.favFlag = false
+            }
+            println test
             test.save(flush: true)
             flash.successCreate = "Contact has been successfully created."
             redirect(action: "show")
@@ -85,7 +108,10 @@ class TestController {
                 redirect(action: "show")
                 return
             }
-            [updateInstance: updateInstance]
+
+            def groupSelected = updateInstance.myGroup
+            def allGroup = TestGroup.findAllByMyUser(Person.get(session.myUserId))
+            [updateInstance: [updateInstance, allGroup, groupSelected]]
         }
 
         else {
@@ -99,11 +125,34 @@ class TestController {
     def edit() {
 
         if(session.myUserId){
+            println "Params wala ID : ${params.id}"
             def id = Integer.parseInt(params.id)
             def editInstance = Test.get(id)
             editInstance.firstName = params.fname
             editInstance.lastName = params.lname
-            editInstance.myGroup = TestGroup.get(Integer.parseInt(params.groupId))
+            editInstance.email = params.email
+
+            def date = new SimpleDateFormat("yyyy-MM-dd").parse(params.dob)
+            if(date.after(new Date())) {
+                flash.dateError = "Enter a Valid Birth Date."
+                redirect(action: "index")
+                return
+            }
+            editInstance.dob = date
+            editInstance.phone = Long.parseLong(params.phone)
+
+            if((params.groupId).equals("noGroup")){
+                editInstance.myGroup = null
+            } else {
+                editInstance.myGroup = TestGroup.get(Integer.parseInt(params.groupId))
+            }
+
+            if((params.fav).equals("fav")) {
+                editInstance.favFlag = true
+            } else {
+                editInstance.favFlag = false
+            }
+
             editInstance.save(flush: true)
             flash.successUp = "Successfully Updated"
             redirect(action: "show")

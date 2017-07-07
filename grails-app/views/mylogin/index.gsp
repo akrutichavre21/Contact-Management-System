@@ -26,7 +26,6 @@
                     <h2><b style="color: #ffffff">Login Form</b></h2>
                     <hr>
                     <br>
-                    <br>
                     <g:if test="${flash.passwordIncorrect}">
                         <div class=" alert alert-danger">${flash.passwordIncorrect}</div>
                     </g:if>
@@ -39,6 +38,9 @@
                     <g:if test="${flash.logoutMessage}">
                         <div class=" alert alert-success">${flash.logoutMessage}</div>
                     </g:if>
+                    <g:if test="${flash.alreadyMember}">
+                        <div class=" alert alert-danger">${flash.alreadyMember}</div>
+                    </g:if>
 
                     <form action="/mylogin/login">
                         <label style="color: #ffffff;" ><b>Username</b></label>
@@ -50,6 +52,9 @@
                         <br>
                         <input type="submit" class="btn btn-primary btn-block" value="Login"/>
                     </form>
+                    <div align="center">
+                        <a href="/mylogin/signup" style="color: #ffffff" >Not a member yet? Sign Up.</a>
+                    </div>
                     <br>
                 </div>
             </div>

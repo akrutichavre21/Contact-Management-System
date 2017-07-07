@@ -5,5 +5,6 @@ class TestGroup {
     String name
     Person myUser
     static constraints = {
+        name blank: false
     }
 }

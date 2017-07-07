@@ -6,6 +6,7 @@
     <title>
         CRUD In Database
     </title>
+    <asset:stylesheet src="myLayout.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     %{--    <asset:stylesheet src="application.css"/>
 
@@ -27,6 +28,7 @@
             <a class="navbar-brand" href="/testgroup/index">My Contacts</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
+
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">Contact
                     <span class="caret"></span></a>
@@ -43,6 +45,9 @@
                     <li><a href="/testgroup/index">Create</a></li>
                 </ul>
             </li>
+            <li><a href="/dashboard/index">Favourites</a></li>
+            <li><a href="/dashboard/showContact">Contact Listing</a></li>
+            <li><a href="/dashboard/reminder">Reminders</a></li>
             <li> <a href="/mylogin/logout"> Logout </a></li>
         </ul>
     </div>
